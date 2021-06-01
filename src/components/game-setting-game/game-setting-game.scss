@@ -1,0 +1,30 @@
+.game_setting_game{
+    width: 260px;
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 40px;
+    margin-left: 124px;
+}
+.game_setting_game_header{
+    font-family: 'Roboto';
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.15px;
+    color: #333;
+}
+.game_setting_game_select{
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    line-height: 21px;
+    letter-spacing: 0.25px;
+    padding: 10px 20px 10px 0;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}

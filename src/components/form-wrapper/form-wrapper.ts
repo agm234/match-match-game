@@ -14,15 +14,15 @@ export class FormWrapper extends BaseComponent {
                         <div class="popup_left">
                             <div class="popup_input_wrapper">
                             <label class="label" >First Name</label>
-                            <input id="name" type="text" placeholder="First Name" required>
+                            <input class="form_input" id="name" type="text" placeholder="First Name" max="30" required pattern="[^0-9(~ ! @ # $ % * () _ — + = | : ; '  < > , . ? / ^)]{1,30}">
                             </div>
                             <div class="popup_input_wrapper">
                             <label class="label" >Last Name</label>
-                            <input id="lastname" type="text" placeholder="Last Name" required>
+                            <input class="form_input" id="lastname" type="text" placeholder="Last Name" max="30" pattern="[^0-9(~ ! @ # $ % * () _ — + = | : ; '  < > , . ? / ^)]{1,30}" required>
                             </div>
                             <div class="popup_input_wrapper">
                             <label class="label" >E-mail</label>
-                            <input id="email" type="email" placeholder="E-mail" required>
+                            <input class="form_input" id="email" type="email" placeholder="E-mail" max="30" pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+[A-Za-z]{2,}$" required>
                             </div>
                         </div>
                         <div class="popup_right">
@@ -39,13 +39,22 @@ export class FormWrapper extends BaseComponent {
 
   form() {
     const add = document.querySelector('.popup');
+    const inputs = document.querySelectorAll('.form_input');
+    inputs.forEach((el) => {
+      el.addEventListener('invalid', () => {
+        el.parentElement?.classList.add('invalid');
+      });
+      el.addEventListener('input', () => {
+        el.parentElement?.classList.remove('invalid');
+      });
+    });
     add?.addEventListener('submit', async (event) => {
       event.preventDefault();
       document.querySelector('.cover')?.classList.toggle('hidden');
       document.querySelector('.btn-reg__register')?.classList.add('hide');
       document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
       document.querySelector('.avatar')?.classList.remove('hide');
-      console.log('asfasfaf');
+      document.body.classList.remove('noscrool');
       const Idb = new DataBase();
       await Idb.init('agm234', 1);
       await Idb.write(this.UserData());

@@ -1,17 +1,19 @@
 export class DataBase {
   public db!: IDBDatabase;
 
+  public store!: IDBObjectStore;
+
   init(dbName: string, version?: number) {
     return new Promise((resolve, reject) => {
       const indexDB = window.indexedDB;
       const openRequest = indexDB.open(dbName, version);
       openRequest.onupgradeneeded = () => {
         const database = openRequest.result;
-        const store = database.createObjectStore('Collection', { keyPath: 'id', autoIncrement: true });
-        store.createIndex('name', 'name');
-        store.createIndex('lastname', 'lastname');
-        store.createIndex('email', 'email', { unique: true });
-        store.createIndex('score', 'score');
+        this.store = database.createObjectStore('Collection', { keyPath: 'id', autoIncrement: true });
+        this.store.createIndex('name', 'name');
+        this.store.createIndex('lastname', 'lastname');
+        this.store.createIndex('email', 'email', { unique: true });
+        this.store.createIndex('score', 'score');
         this.db = database;
         resolve(this.db);
       };
@@ -26,8 +28,8 @@ export class DataBase {
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction('Collection', 'readwrite');
 
-      const store = transaction.objectStore('Collection');
-      const res = store.add({});
+      this.store = transaction.objectStore('Collection');
+      const res = this.store.add({});
       let transResult: RecordType;
       transaction.oncomplete = () => {
         resolve(transResult);
@@ -35,7 +37,7 @@ export class DataBase {
       res.onsuccess = () => {
         const newRecord: RecordType = { ...UserData, id: res.result };
         transResult = newRecord;
-        const result = store.put(newRecord);
+        const result = this.store.put(newRecord);
         result.onsuccess = () => {
           console.log('complite', result.result);
         };
@@ -48,8 +50,8 @@ export class DataBase {
 
   readAll() {
     const transaction = this.db.transaction('Collection', 'readonly');
-    const store = transaction.objectStore('Collection');
-    const result = store.getAll();
+    this.store = transaction.objectStore('Collection');
+    const result = this.store.getAll();
     result.onsuccess = () => {
       console.log(result.result);
     };
@@ -57,8 +59,8 @@ export class DataBase {
 
   filter() {
     const transaction = this.db.transaction('Collection', 'readonly');
-    const store = transaction.objectStore('Collection');
-    const result = store.index('email').openCursor(null, 'next');
+    this.store = transaction.objectStore('Collection');
+    const result = this.store.index('email').openCursor(null, 'next');
     const resData: Array<any> = [];
     result.onsuccess = () => {
       const cursor = result.result;

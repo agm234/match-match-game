@@ -27,7 +27,6 @@ export class App {
   }
 
   async start() {
-    console.log('qwqrqqrqwrqwr');
     const res = await fetch('./images.json');
     const categories: ImageCategory[] = await res.json();
 
@@ -39,6 +38,8 @@ export class App {
     const routing = [{
       name: 'test1',
       component: () => {
+        document.querySelector('.active_nav')?.classList.remove('active_nav');
+        document.querySelector('.about')?.classList.add('active_nav');
         this.rootElement.innerHTML = '';
         this.rootElement.appendChild(this.header.element);
         this.rootElement.appendChild(this.main.element);
@@ -49,6 +50,7 @@ export class App {
       component: () => {
         document.querySelector('.btn-reg__startgame')?.classList.add('hide');
         document.querySelector('.btn-reg__stopgame')?.classList.remove('hide');
+        document.querySelector('.active_nav')?.classList.remove('active_nav');
         this.rootElement.innerHTML = '';
         this.rootElement.appendChild(this.header.element);
         this.rootElement.appendChild(this.GameWrapper.element);
@@ -58,14 +60,21 @@ export class App {
     {
       name: 'test2',
       component: () => {
+        document.querySelector('.active_nav')?.classList.remove('active_nav');
+        document.querySelector('.score')?.classList.add('active_nav');
         this.rootElement.innerHTML = '';
         this.rootElement.appendChild(this.header.element);
         this.rootElement.appendChild(this.Score.element);
+        if (document.body.classList.contains('noscrool')) {
+          document.body.classList.remove('noscrool');
+        }
       },
     },
     {
       name: 'test3',
       component: () => {
+        document.querySelector('.active_nav')?.classList.remove('active_nav');
+        document.querySelector('.settings')?.classList.add('active_nav');
         this.rootElement.innerHTML = '';
         this.rootElement.appendChild(this.header.element);
         this.rootElement.appendChild(this.GameSetting.element);

@@ -6,8 +6,9 @@
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+    height: 120vh;
     background-color: rgb(0, 0, 0,0.5);
+    z-index: 10;
 }
 
 .hidden{
@@ -58,6 +59,12 @@ display: flex;
     background: rgba(33, 33, 33, 0.08);
     padding-left: 52px;
     padding-top: 8px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-style: solid;
+    border-color: lightslategray;
+   
 }
 .label{
     width: 63px;
@@ -72,13 +79,14 @@ display: flex;
 }
 input{
     width: 100%;
-    height: 32px;
+    height: 36px;
     font-size: 16px;
     border: none;
     border-radius: 4px 4px 0px 0px;
     outline: none;
     background-color: transparent;
 }
+
 input::placeholder{
     font-family: 'Roboto';
     font-style: normal;
@@ -143,4 +151,10 @@ input::placeholder{
     letter-spacing: 1.25px;
     text-transform: uppercase;
     color: #2196F3;
+}
+.invalid{
+    border-color: red;
+}
+.valid{
+    border-color: rgb(9, 255, 0);
 }

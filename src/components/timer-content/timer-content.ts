@@ -4,6 +4,8 @@ import './timer-content.scss';
 export class TimerContent extends BaseComponent {
   private timer!: number;
 
+  private test!: HTMLCollectionOf<HTMLHeadingElement>;
+
   public dataTimer!: Date;
 
   constructor() {
@@ -14,18 +16,23 @@ export class TimerContent extends BaseComponent {
   }
 
   startTimer() {
-    console.log('starttimer');
     let miliseconds = 0;
-    const test = document.getElementsByTagName('h2');
+    this.test = document.getElementsByTagName('h2');
     this.timer = window.setInterval(() => {
       miliseconds += 10;
       this.dataTimer = new Date(miliseconds);
-      test[0].innerHTML = `${(`0${this.dataTimer.getUTCMinutes()}`).slice(-2)}:${(`0${this.dataTimer.getUTCSeconds()}`).slice(-2)}`;
+      this.test[0].innerHTML = `${(`0${this.dataTimer.getUTCMinutes()}`).slice(-2)}:
+      ${(`0${this.dataTimer.getUTCSeconds()}`).slice(-2)}`;
     }, 10);
   }
 
   stopTimer() {
-    console.log('cleartimer');
     clearInterval(this.timer);
+  }
+
+  clearTimer() {
+    this.test[0].innerHTML = `
+        00:00
+        `;
   }
 }

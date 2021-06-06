@@ -1,9 +1,12 @@
 import { BaseComponent } from '../base-component';
 import { FormWrapper } from '../form-wrapper/form-wrapper';
+import { GameWrapper } from '../game-wrapper/game-wrapper';
 import './header-btn-wrapper.scss';
 
 export class HeaderBtnWrapper extends BaseComponent {
   private readonly FormWrapper: FormWrapper;
+
+  private readonly GameWrapper: GameWrapper;
 
   constructor() {
     super('div', ['btn-reg']);
@@ -19,6 +22,7 @@ export class HeaderBtnWrapper extends BaseComponent {
         `;
     this.FormWrapper = new FormWrapper();
     this.element.appendChild(this.FormWrapper.element);
+    this.GameWrapper = new GameWrapper();
   }
 
   show() {
@@ -37,6 +41,9 @@ export class HeaderBtnWrapper extends BaseComponent {
         el.classList.remove('invalid');
       });
       document.querySelector('.cover')?.classList.toggle('hidden');
+    });
+    const btnStop = document.querySelector('.btn-reg__stopgame');
+    btnStop?.addEventListener('click', () => {
     });
   }
 }

@@ -10,4 +10,12 @@
 }
 .noscrool{
     overflow-y: hidden;
-    }
+}
+.red{
+    background-blend-mode: multiply;
+    background-color: rgba(255, 0, 0, 0.5);
+}
+.green{
+    background-blend-mode: multiply;
+    background-color: rgba(26, 247, 6, 0.5);
+}

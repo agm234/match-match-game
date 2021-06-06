@@ -4,7 +4,7 @@ export class DataBase {
   public store!: IDBObjectStore;
 
   init(dbName: string, version?: number) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const indexDB = window.indexedDB;
       const openRequest = indexDB.open(dbName, version);
       openRequest.onupgradeneeded = () => {
@@ -25,9 +25,8 @@ export class DataBase {
   }
 
   write<RecordType>(UserData: RecordType): Promise<RecordType> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const transaction = this.db.transaction('Collection', 'readwrite');
-
       this.store = transaction.objectStore('Collection');
       const res = this.store.add({});
       let transResult: RecordType;
@@ -37,43 +36,52 @@ export class DataBase {
       res.onsuccess = () => {
         const newRecord: RecordType = { ...UserData, id: res.result };
         transResult = newRecord;
-        const result = this.store.put(newRecord);
-        result.onsuccess = () => {
-          console.log('complite', result.result);
-        };
-        result.onerror = () => {
-          console.log('error', result.error);
-        };
+        this.store.put(newRecord);
       };
     });
   }
 
-  readAll() {
-    const transaction = this.db.transaction('Collection', 'readonly');
-    this.store = transaction.objectStore('Collection');
-    const result = this.store.getAll();
-    result.onsuccess = () => {
-      console.log(result.result);
-    };
+  putNewScore<RecordType>(UserData: RecordType): Promise<RecordType> {
+    return new Promise((resolve) => {
+      const transaction = this.db.transaction('Collection', 'readwrite');
+      this.store = transaction.objectStore('Collection');
+      this.store.put(UserData);
+      let transResult: RecordType;
+      transaction.oncomplete = () => {
+        resolve(transResult);
+      };
+    });
   }
 
-  filter() {
-    const transaction = this.db.transaction('Collection', 'readonly');
-    this.store = transaction.objectStore('Collection');
-    const result = this.store.index('email').openCursor(null, 'next');
-    const resData: Array<any> = [];
-    result.onsuccess = () => {
-      const cursor = result.result;
-      if (cursor) {
-        console.log(cursor.value);
-        if (resData.length < 2) {
-          resData.push(cursor.value);
+  read<RecordType>(key: string): Promise<Array<RecordType>> {
+    return new Promise((resolve) => {
+      const transaction = this.db.transaction('Collection', 'readonly');
+      this.store = transaction.objectStore('Collection');
+      const result = this.store.index('email').getAll(key);
+      result.onsuccess = () => {
+        resolve(result.result);
+      };
+    });
+  }
+
+  readfiltred<RecordType>(): Promise<Array<RecordType>> {
+    return new Promise((resolve) => {
+      const transaction = this.db.transaction('Collection', 'readonly');
+      this.store = transaction.objectStore('Collection');
+      const result = this.store.index('score').openCursor(null, 'prev');
+      const resData: Array<any> = [];
+      result.onsuccess = () => {
+        const cursor = result.result;
+        if (cursor) {
+          if (resData.length < 10) {
+            resData.push(cursor.value);
+          }
+          cursor?.continue();
         }
-        cursor?.continue();
-      }
-    };
-    transaction.oncomplete = () => {
-      console.log(resData);
-    };
+      };
+      transaction.oncomplete = () => {
+        resolve(resData);
+      };
+    });
   }
 }

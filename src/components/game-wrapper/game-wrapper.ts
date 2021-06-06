@@ -6,12 +6,21 @@ import { delay } from '../shared/delay';
 import { DataBase } from '../../indexedDB';
 import { FormWrapper } from '../form-wrapper/form-wrapper';
 import './game-wrapper.scss';
-import { GameSettingCards } from '../game-setting-cards/game-setting-cards';
 import { TimerContent } from '../timer-content/timer-content';
 import { PopupFinish } from '../popup-finish-game/popup-finish-game';
 
+interface MyRecord {
+  name: string;
+  lastname: string;
+  email: string;
+  score: number;
+  id: IDBValidKey;
+}
+
 const flipDelay = 1000;
 let numberofcards = 0;
+let numberOfComparisons = 0;
+let numberOfFalseComparisons = 0;
 export class GameWrapper extends BaseComponent {
   private readonly game: Game;
 
@@ -27,9 +36,7 @@ export class GameWrapper extends BaseComponent {
 
   public TimerContent!: TimerContent;
 
-  // private DataBase!: DataBase;
-
-  // private FormWrapper!: FormWrapper;
+  private FormWrapper!: FormWrapper;
 
   constructor() {
     super('div', ['game_wrapper']);
@@ -39,17 +46,27 @@ export class GameWrapper extends BaseComponent {
     this.element.appendChild(this.Timer.element);
     this.game = new Game();
     this.element.appendChild(this.game.element);
+    this.FormWrapper = new FormWrapper();
   }
 
   StartGame(images: string[]) {
     this.game.clear();
     this.TimerContent = new TimerContent();
     this.cards = images.concat(images).map((url) => new CardContainer(url)).sort(() => Math.random() - 0.2);
+    numberofcards = 0;
+    numberOfComparisons = 0;
+    numberOfFalseComparisons = 0;
     this.cards.forEach((card) => card.element.addEventListener('click', () => this.cardHandler(card)));
     this.game.addCards(this.cards);
     setTimeout(() => {
       this.TimerContent.startTimer();
     }, 5000);
+  }
+
+  stop() {
+    this.TimerContent.stopTimer();
+    this.TimerContent.clearTimer();
+    this.game.clear();
   }
 
   private async cardHandler(card: CardContainer) {
@@ -65,24 +82,49 @@ export class GameWrapper extends BaseComponent {
     }
 
     if (this.activeCard.image !== card.image) {
+      this.activeCard.element.classList.add('red');
+      card.element.classList.add('red');
+      numberOfComparisons += 1;
+      numberOfFalseComparisons += 1;
       await delay(flipDelay);
-      await Promise.all([card.FliptoBack(),
-        this.activeCard.FliptoBack()]);
+      await Promise.all([
+        card.FliptoBack(),
+        this.activeCard.FliptoBack(),
+        this.activeCard.element.classList.remove('red'),
+        card.element.classList.remove('red')]);
     }
     if (this.activeCard.image === card.image) {
+      this.activeCard.element.classList.add('green');
+      card.element.classList.add('green');
+      numberOfComparisons += 1;
       numberofcards += 2;
     }
     if (numberofcards === this.cards.length) {
-      this.TimerContent.stopTimer();
-      const info = document.querySelectorAll('.info');
-      info[0].innerHTML = `
-      Congratulations! You successfully found all matches on ${this.TimerContent.dataTimer.getUTCMinutes()} minutes and ${this.TimerContent.dataTimer.getUTCSeconds()} seconds.
-      `;
-      this.PopupFinish.element.classList.add('visible');
-      document.body.classList.add('noscrool');
-      // this.DataBase.store.put({})
+      this.finishgame();
     }
     this.activeCard = undefined;
     this.isAnimation = false;
+  }
+
+  async finishgame() {
+    this.TimerContent.stopTimer();
+    const info = document.querySelector('.info');
+    (info as HTMLElement).innerHTML = `
+      Congratulations! You successfully found all matches on ${this.TimerContent.dataTimer.getUTCMinutes()} 
+      minutes and ${this.TimerContent.dataTimer.getUTCSeconds()} seconds.
+      `;
+    this.PopupFinish.element.classList.add('visible');
+    document.body.classList.add('noscrool');
+    let Newscore = (numberOfComparisons - numberOfFalseComparisons) * 100
+    - (this.TimerContent.dataTimer.getUTCMinutes() * 60 + this.TimerContent.dataTimer.getUTCSeconds()) * 10;
+    if (Newscore < 0) {
+      Newscore = 0;
+    }
+    const userEmail = this.FormWrapper.UserData().email;
+    const Idb = new DataBase();
+    await Idb.init('agm234', 1);
+    const user = await Idb.read<MyRecord>(userEmail);
+    user[0].score = Newscore;
+    await Idb.putNewScore(user[0]);
   }
 }

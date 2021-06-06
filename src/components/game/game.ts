@@ -16,7 +16,13 @@ export class Game extends BaseComponent {
 
   addCards(cards: CardContainer[]) {
     this.cards = cards;
-    this.cards.forEach((card) => this.element.appendChild(card.element));
+    const CardWidth = (100 / (Math.sqrt(this.cards.length)) - 1);
+    const CardHeight = (100 / (Math.sqrt(this.cards.length)) - 1);
+    this.cards.forEach((card) => {
+      card.element.style.width = `calc(${CardWidth}%)`;
+      card.element.style.height = `calc(${CardHeight}%)`;
+      this.element.appendChild(card.element);
+    });
     setTimeout(() => {
       this.cards.forEach((card) => card.FliptoBack());
     }, 5000);

@@ -7,7 +7,7 @@ export class PopupFinish extends BaseComponent {
     this.element.innerHTML = `
         <div class="finish_window">
         <p class="info">Congratulations! You successfully found all matches on  minutes and  seconds.</p>
-        <a href="#test2">
+        <a href="#endgame">
         <button class="finish_btn">Ok</button>
         </a>
         </div>

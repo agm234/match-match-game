@@ -3,7 +3,7 @@ export class DataBase {
 
   public store!: IDBObjectStore;
 
-  init(dbName: string, version?: number) {
+  init(dbName: string, version?: number): Promise<IDBDatabase> {
     return new Promise((resolve) => {
       const indexDB = window.indexedDB;
       const openRequest = indexDB.open(dbName, version);
@@ -69,7 +69,7 @@ export class DataBase {
       const transaction = this.db.transaction('Collection', 'readonly');
       this.store = transaction.objectStore('Collection');
       const result = this.store.index('score').openCursor(null, 'prev');
-      const resData: Array<any> = [];
+      const resData: Array<RecordType> = [];
       result.onsuccess = () => {
         const cursor = result.result;
         if (cursor) {

@@ -15,7 +15,7 @@ export class HeaderBtnWrapper extends BaseComponent {
             <a  href="#start">
             <button class="btn-reg__startgame hide">Start Game</button>
             </a>
-            <a  href="#stop">
+            <a class="stop"  href="#stop">
             <button class="btn-reg__stopgame hide">Stop Game</button>
             </a>
             <div class="avatar hide"> </div>
@@ -25,7 +25,7 @@ export class HeaderBtnWrapper extends BaseComponent {
     this.GameWrapper = new GameWrapper();
   }
 
-  show() {
+  show(): void {
     console.log(this.element);
     const btn = document.querySelector('.btn-reg__register');
     btn?.addEventListener('click', () => {

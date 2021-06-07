@@ -38,7 +38,7 @@ export class App {
     this.ScoreList = new ScoreList();
   }
 
-  async start() {
+  async start(): Promise<void> {
     const res = await fetch('./images.json');
     const categories: ImageCategory[] = await res.json();
     const index: number = this.GameSettingCardsSelect.SelectedValueCards();
@@ -47,95 +47,93 @@ export class App {
     this.GameWrapper.StartGame(images);
   }
 
-  async stopGame() {
+  async stopGame(): Promise<void> {
     this.GameWrapper.stop();
   }
 
-  async routing() {
-    const routing = [{
-      name: 'test1',
-      component: () => {
-        document.querySelector('.active_nav')?.classList.remove('active_nav');
-        document.querySelector('.about')?.classList.add('active_nav');
-        this.rootElement.innerHTML = '';
-        this.rootElement.appendChild(this.header.element);
-        this.rootElement.appendChild(this.main.element);
+  async routing(): Promise<void> {
+    const routing = [
+      {
+        name: 'test1',
+        component: () => {
+          document.querySelector('.active_nav')?.classList.remove('active_nav');
+          document.querySelector('.about')?.classList.add('active_nav');
+          this.rootElement.innerHTML = '';
+          this.rootElement.appendChild(this.header.element);
+          this.rootElement.appendChild(this.main.element);
+        },
       },
-    },
-    {
-      name: 'start',
-      component: () => {
-        this.rootElement.innerHTML = '';
-        this.rootElement.appendChild(this.header.element);
-        document.querySelector('.btn-reg__startgame')?.classList.add('hide');
-        document.querySelector('.btn-reg__stopgame')?.classList.remove('hide');
-        document.querySelector('.active_nav')?.classList.remove('active_nav');
-        this.rootElement.appendChild(this.GameWrapper.element);
-        this.start();
+      {
+        name: 'start',
+        component: () => {
+          this.rootElement.innerHTML = '';
+          this.rootElement.appendChild(this.header.element);
+          document.querySelector('.btn-reg__startgame')?.classList.add('hide');
+          document.querySelector('.btn-reg__stopgame')?.classList.remove('hide');
+          document.querySelector('.active_nav')?.classList.remove('active_nav');
+          this.rootElement.appendChild(this.GameWrapper.element);
+          this.start();
+        },
       },
-    },
-    {
-      name: 'stop',
-      component: () => {
-        this.stopGame();
-        document.querySelector('.about')?.classList.add('active_nav');
-        document.querySelector('.btn-reg__stopgame')?.classList.add('hide');
-        document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
-        this.rootElement.innerHTML = '';
-        this.rootElement.appendChild(this.header.element);
-        this.rootElement.appendChild(this.main.element);
+      {
+        name: 'stop',
+        component: () => {
+          this.stopGame();
+          document.querySelector('.about')?.classList.add('active_nav');
+          document.querySelector('.btn-reg__stopgame')?.classList.add('hide');
+          document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
+          this.rootElement.innerHTML = '';
+          this.rootElement.appendChild(this.header.element);
+          this.rootElement.appendChild(this.main.element);
+        },
       },
-    },
-    {
-      name: 'endgame',
-      component: () => {
-        document.querySelector('.active_nav')?.classList.remove('active_nav');
-        document.querySelector('.score')?.classList.add('active_nav');
-        document.querySelector('.btn-reg__stopgame')?.classList.add('hide');
-        document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
-        document.querySelector('.finish')?.classList.remove('visible');
-        this.rootElement.innerHTML = '';
-        this.rootElement.appendChild(this.header.element);
-        this.rootElement.appendChild(this.Score.element);
-        if (document.body.classList.contains('noscrool')) {
-          document.body.classList.remove('noscrool');
-        }
-        this.ScoreList.results();
+      {
+        name: 'endgame',
+        component: () => {
+          document.querySelector('.active_nav')?.classList.remove('active_nav');
+          document.querySelector('.score')?.classList.add('active_nav');
+          document.querySelector('.btn-reg__stopgame')?.classList.add('hide');
+          document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
+          document.querySelector('.finish')?.classList.remove('visible');
+          this.rootElement.innerHTML = '';
+          this.rootElement.appendChild(this.header.element);
+          this.rootElement.appendChild(this.Score.element);
+          if (document.body.classList.contains('noscrool')) {
+            document.body.classList.remove('noscrool');
+          }
+          this.ScoreList.results();
+        },
       },
-    },
-    {
-      name: 'test2',
-      component: () => {
-        document.querySelector('.active_nav')?.classList.remove('active_nav');
-        document.querySelector('.score')?.classList.add('active_nav');
-        this.rootElement.innerHTML = '';
-        this.rootElement.appendChild(this.header.element);
-        this.rootElement.appendChild(this.Score.element);
-        if (document.body.classList.contains('noscrool')) {
-          document.body.classList.remove('noscrool');
-        }
-        this.ScoreList.results();
+      {
+        name: 'test2',
+        component: () => {
+          document.querySelector('.active_nav')?.classList.remove('active_nav');
+          document.querySelector('.score')?.classList.add('active_nav');
+          this.rootElement.innerHTML = '';
+          this.rootElement.appendChild(this.header.element);
+          this.rootElement.appendChild(this.Score.element);
+          if (document.body.classList.contains('noscrool')) {
+            document.body.classList.remove('noscrool');
+          }
+          this.ScoreList.results();
+        },
       },
-    },
-    {
-      name: 'test3',
-      component: () => {
-        document.querySelector('.active_nav')?.classList.remove('active_nav');
-        document.querySelector('.settings')?.classList.add('active_nav');
-        this.rootElement.innerHTML = '';
-        this.rootElement.appendChild(this.header.element);
-        this.rootElement.appendChild(this.GameSetting.element);
-        this.GameSettingCardsSelect.SelectedValueCards();
-        this.GameSettingGameSelect.SelectedValueGame();
+      {
+        name: 'test3',
+        component: () => {
+          document.querySelector('.active_nav')?.classList.remove('active_nav');
+          document.querySelector('.settings')?.classList.add('active_nav');
+          this.rootElement.innerHTML = '';
+          this.rootElement.appendChild(this.header.element);
+          this.rootElement.appendChild(this.GameSetting.element);
+          this.GameSettingCardsSelect.SelectedValueCards();
+          this.GameSettingGameSelect.SelectedValueGame();
+        },
       },
-    },
-
     ];
     const defaultRoute = {
       name: 'default',
-      component: () => {
-
-      },
+      component: () => {},
     };
     window.onpopstate = () => {
       const currentRouteName = window.location.hash.slice(1);

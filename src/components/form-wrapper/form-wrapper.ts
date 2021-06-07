@@ -48,7 +48,7 @@ export class FormWrapper extends BaseComponent {
         `;
   }
 
-  form() {
+  form(): void {
     const add = document.querySelector('.popup');
     const inputs = document.querySelectorAll('.form_input');
     inputs.forEach((el) => {
@@ -72,7 +72,7 @@ export class FormWrapper extends BaseComponent {
     });
   }
 
-  UserData() {
+  UserData(): MyRecord {
     console.log(this.element);
     const name = document.getElementById('name');
     const lastname = document.getElementById('lastname');

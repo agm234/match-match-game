@@ -49,21 +49,26 @@ export class GameWrapper extends BaseComponent {
     this.FormWrapper = new FormWrapper();
   }
 
-  StartGame(images: string[]) {
+  StartGame(images: string[]): void {
     this.game.clear();
     this.TimerContent = new TimerContent();
-    this.cards = images.concat(images).map((url) => new CardContainer(url)).sort(() => Math.random() - 0.2);
+    this.cards = images
+      .concat(images)
+      .map((url) => new CardContainer(url))
+      .sort(() => Math.random() - 0.2);
     numberofcards = 0;
     numberOfComparisons = 0;
     numberOfFalseComparisons = 0;
     this.cards.forEach((card) => card.element.addEventListener('click', () => this.cardHandler(card)));
     this.game.addCards(this.cards);
+    document.querySelector('.stop')?.classList.add('not-active');
     setTimeout(() => {
       this.TimerContent.startTimer();
+      document.querySelector('.stop')?.classList.remove('not-active');
     }, 5000);
   }
 
-  stop() {
+  stop(): void {
     this.TimerContent.stopTimer();
     this.TimerContent.clearTimer();
     this.game.clear();
@@ -91,7 +96,8 @@ export class GameWrapper extends BaseComponent {
         card.FliptoBack(),
         this.activeCard.FliptoBack(),
         this.activeCard.element.classList.remove('red'),
-        card.element.classList.remove('red')]);
+        card.element.classList.remove('red'),
+      ]);
     }
     if (this.activeCard.image === card.image) {
       this.activeCard.element.classList.add('green');
@@ -106,7 +112,7 @@ export class GameWrapper extends BaseComponent {
     this.isAnimation = false;
   }
 
-  async finishgame() {
+  async finishgame(): Promise<void> {
     this.TimerContent.stopTimer();
     const info = document.querySelector('.info');
     (info as HTMLElement).innerHTML = `
@@ -116,7 +122,7 @@ export class GameWrapper extends BaseComponent {
     this.PopupFinish.element.classList.add('visible');
     document.body.classList.add('noscrool');
     let Newscore = (numberOfComparisons - numberOfFalseComparisons) * 100
-    - (this.TimerContent.dataTimer.getUTCMinutes() * 60 + this.TimerContent.dataTimer.getUTCSeconds()) * 10;
+      - (this.TimerContent.dataTimer.getUTCMinutes() * 60 + this.TimerContent.dataTimer.getUTCSeconds()) * 10;
     if (Newscore < 0) {
       Newscore = 0;
     }

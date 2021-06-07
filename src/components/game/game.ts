@@ -9,15 +9,15 @@ export class Game extends BaseComponent {
     super('div', ['game']);
   }
 
-  clear() {
+  clear(): void {
     this.cards = [];
     this.element.innerHTML = '';
   }
 
-  addCards(cards: CardContainer[]) {
+  addCards(cards: CardContainer[]): void {
     this.cards = cards;
-    const CardWidth = (100 / (Math.sqrt(this.cards.length)) - 1);
-    const CardHeight = (100 / (Math.sqrt(this.cards.length)) - 1);
+    const CardWidth = 100 / Math.sqrt(this.cards.length) - 1;
+    const CardHeight = 100 / Math.sqrt(this.cards.length) - 1;
     this.cards.forEach((card) => {
       card.element.style.width = `calc(${CardWidth}%)`;
       card.element.style.height = `calc(${CardHeight}%)`;

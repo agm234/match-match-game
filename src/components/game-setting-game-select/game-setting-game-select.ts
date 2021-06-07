@@ -12,12 +12,12 @@ export class GameSettingGameSelect extends BaseComponent {
         `;
   }
 
-  SelectedValueGame() {
+  SelectedValueGame(): number {
     const asf = document.querySelector('.game_setting_game_select');
     asf?.addEventListener('change', () => {
-      const indexCat = ((asf as HTMLSelectElement).value);
+      const indexCat = (asf as HTMLSelectElement).value;
       (this.element as HTMLSelectElement).value = indexCat;
     });
-    return parseInt(((this.element as HTMLSelectElement).value), 10);
+    return parseInt((this.element as HTMLSelectElement).value, 10);
   }
 }

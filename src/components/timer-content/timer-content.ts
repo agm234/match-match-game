@@ -15,22 +15,22 @@ export class TimerContent extends BaseComponent {
         `;
   }
 
-  startTimer() {
+  startTimer(): void {
     let miliseconds = 0;
     this.test = document.getElementsByTagName('h2');
     this.timer = window.setInterval(() => {
       miliseconds += 10;
       this.dataTimer = new Date(miliseconds);
-      this.test[0].innerHTML = `${(`0${this.dataTimer.getUTCMinutes()}`).slice(-2)}:
-      ${(`0${this.dataTimer.getUTCSeconds()}`).slice(-2)}`;
+      this.test[0].innerHTML = `${`0${this.dataTimer.getUTCMinutes()}`.slice(-2)}:
+      ${`0${this.dataTimer.getUTCSeconds()}`.slice(-2)}`;
     }, 10);
   }
 
-  stopTimer() {
+  stopTimer(): void {
     clearInterval(this.timer);
   }
 
-  clearTimer() {
+  clearTimer(): void {
     this.test[0].innerHTML = `
         00:00
         `;

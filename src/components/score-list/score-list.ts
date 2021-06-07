@@ -17,11 +17,11 @@ export class ScoreList extends BaseComponent {
     this.DataBase = new DataBase();
   }
 
-  async results() {
+  async results(): Promise<void> {
     await this.DataBase.init('agm234', 1);
     const arr = await this.DataBase.readfiltred<MyRecord>();
     let li = '';
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i += 1) {
       const note = arr[i];
       li += `
             <li class="playerScore">

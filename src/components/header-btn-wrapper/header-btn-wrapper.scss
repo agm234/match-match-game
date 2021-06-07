@@ -63,4 +63,7 @@
 
 .noscrool{
     overflow-y: hidden;
-    }
+}
+.not-active {
+    pointer-events: none;
+}

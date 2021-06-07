@@ -19,7 +19,7 @@ export class CardContainer extends BaseComponent {
     return this.flip(true);
   }
 
-  FliptoFront() {
+  FliptoFront(): Promise<void> {
     this.isFlipped = false;
     return this.flip();
   }

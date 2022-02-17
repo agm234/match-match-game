@@ -7,6 +7,8 @@ export class Game extends BaseComponent {
 
   constructor() {
     super('div', ['game']);
+    this.element.innerHTML=`
+    <div class="game_inner"></div>`
   }
 
   clear(): void {
@@ -17,10 +19,8 @@ export class Game extends BaseComponent {
   addCards(cards: CardContainer[]): void {
     this.cards = cards;
     const CardWidth = 100 / Math.sqrt(this.cards.length) - 1;
-    const CardHeight = 100 / Math.sqrt(this.cards.length) - 1;
     this.cards.forEach((card) => {
-      card.element.style.width = `calc(${CardWidth}%)`;
-      card.element.style.height = `calc(${CardHeight}%)`;
+      card.element.style.width = `calc(${25}%)`;
       this.element.appendChild(card.element);
     });
     setTimeout(() => {

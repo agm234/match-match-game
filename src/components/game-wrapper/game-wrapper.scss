@@ -1,21 +1,21 @@
-.game_wrapper{
-    width: 1000;
-    height: 689px;
-    padding: 27px 112px 118px 144px;
-    background-color:rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+.game_wrapper {
+  max-width: 1000px;
+  width: 100%;
+  padding-top: 5%;
+  background-color: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 64px) !important;
 }
-.noscrool{
-    overflow-y: hidden;
+.noscrool {
+  overflow-y: hidden;
 }
-.red{
-    background-blend-mode: multiply;
-    background-color: rgba(255, 0, 0, 0.5);
+.red {
+  background-blend-mode: multiply;
+  background-color: rgba(255, 0, 0, 0.5);
 }
-.green{
-    background-blend-mode: multiply;
-    background-color: rgba(26, 247, 6, 0.5);
+.green {
+  background-blend-mode: multiply;
+  background-color: rgba(26, 247, 6, 0.5);
 }

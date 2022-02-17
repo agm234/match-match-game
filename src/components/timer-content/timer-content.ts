@@ -16,6 +16,7 @@ export class TimerContent extends BaseComponent {
   }
 
   startTimer(): void {
+    this.stopTimer();
     let miliseconds = 0;
     this.test = document.getElementsByTagName('h2');
     this.timer = window.setInterval(() => {
@@ -34,5 +35,8 @@ export class TimerContent extends BaseComponent {
     this.test[0].innerHTML = `
         00:00
         `;
-  }
+        
+  console.log(2323);
+  console.log(this.test[0])
 }
+  }

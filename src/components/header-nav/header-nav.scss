@@ -1,39 +1,44 @@
-.nav{
+.nav {
+  max-width: 805px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: 0.4px;
+  color: rgba(255, 255, 255, 0.7);
+  &__item {
+    width: 96px;
+    height: 64px;
     display: flex;
-    flex-direction: row;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 15px;
-    text-align: center;
-    letter-spacing: 0.4px;
-    color: rgba(255, 255, 255, 0.7);
-    padding-right: 517px;
-    &__item{
-        width: 96px;
-        height: 64px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    &__img{
-        width: 20px;
-        height: 20px;
-        margin-top: 9px;
-        margin-bottom: 7px;
-       
-    }
-    &__img_about{
-        background-image: url(../../assets/header_img/about_game.png) ;
-    }
-    &__img_score{
-        background-image: url(../../assets/header_img/best_score.png);
-    }
-    &__img_settings{
-        background-image: url(../../assets/header_img/game_setting.png);
-    }
+    flex-direction: column;
+    align-items: center;
+  }
+  &__img {
+    width: 20px;
+    height: 20px;
+    margin-top: 9px;
+    margin-bottom: 7px;
+  }
+  &__img_about {
+    background-image: url(../../assets/header_img/about_game.png);
+  }
+  &__img_score {
+    background-image: url(../../assets/header_img/best_score.png);
+  }
+  &__img_settings {
+    background-image: url(../../assets/header_img/game_setting.png);
+  }
 }
-.active_nav{
-    background-color: #0d7dda;;
+.active_nav {
+  background-color: #0d7dda;
+}
+@media (max-width: 600px) {
+  .nav {
+    display: none;
+  }
 }

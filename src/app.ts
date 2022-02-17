@@ -7,10 +7,13 @@ import { GameSetting } from './components/game-setting/game-setting';
 import { GameSettingCardsSelect } from './components/game-setting-cards-select/game-setting-cards-select';
 import { GameSettingGameSelect } from './components/game-setting-game-select/game-setting-game-select';
 import { ScoreList } from './components/score-list/score-list';
+import { NavMeny } from './components/nav-menu/nav-menu';
+import { FormWrapper } from './components/form-wrapper/form-wrapper';
 
 export class App {
   private readonly header: Header;
-
+  private readonly NavMeny: NavMeny;
+  private readonly FormWrapper: FormWrapper;
   private readonly main: Main;
 
   private readonly GameWrapper: GameWrapper;
@@ -26,10 +29,12 @@ export class App {
   private readonly ScoreList: ScoreList;
 
   constructor(private readonly rootElement: HTMLElement) {
+    window.location.hash='test1';
     this.header = new Header();
-    this.rootElement.appendChild(this.header.element);
     this.main = new Main();
-    this.rootElement.appendChild(this.main.element);
+    this.NavMeny= new NavMeny();
+    this.FormWrapper = new FormWrapper();
+    this.rootElement.prepend(this.header.element,this.main.element,this.NavMeny.element,this.FormWrapper.element);
     this.GameWrapper = new GameWrapper();
     this.Score = new Score();
     this.GameSetting = new GameSetting();
@@ -61,6 +66,9 @@ export class App {
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.main.element);
+          this.rootElement.appendChild(this.NavMeny.element)
+          this.rootElement.appendChild(this.FormWrapper.element)
+          this.stopGame();
         },
       },
       {
@@ -68,10 +76,19 @@ export class App {
         component: () => {
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
-          document.querySelector('.btn-reg__startgame')?.classList.add('hide');
-          document.querySelector('.btn-reg__stopgame')?.classList.remove('hide');
+          this.NavMeny.closeSideBar();
           document.querySelector('.active_nav')?.classList.remove('active_nav');
           this.rootElement.appendChild(this.GameWrapper.element);
+          this.rootElement.appendChild(this.NavMeny.element)
+          this.rootElement.appendChild(this.FormWrapper.element)
+          document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
+            console.log(el)
+            el.classList.add('hide');
+          })
+          document.querySelectorAll('.btn-reg__stopgame').forEach(el=>{
+            console.log(el)
+            el.classList.remove('hide');
+          })
           this.start();
         },
       },
@@ -79,12 +96,22 @@ export class App {
         name: 'stop',
         component: () => {
           this.stopGame();
+          this.NavMeny.closeSideBar();
           document.querySelector('.about')?.classList.add('active_nav');
-          document.querySelector('.btn-reg__stopgame')?.classList.add('hide');
-          document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
+          document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
+            console.log(el)
+            el.classList.remove('hide');
+          })
+          document.querySelectorAll('.btn-reg__stopgame').forEach(el=>{
+            console.log(el)
+            el.classList.add('hide');
+          })
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.main.element);
+          this.rootElement.appendChild(this.NavMeny.element)
+          this.rootElement.appendChild(this.FormWrapper.element)
+          
         },
       },
       {
@@ -92,12 +119,20 @@ export class App {
         component: () => {
           document.querySelector('.active_nav')?.classList.remove('active_nav');
           document.querySelector('.score')?.classList.add('active_nav');
-          document.querySelector('.btn-reg__stopgame')?.classList.add('hide');
-          document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
+          document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
+            console.log(el)
+            el.classList.remove('hide');
+          })
+          document.querySelectorAll('.btn-reg__stopgame').forEach(el=>{
+            console.log(el)
+            el.classList.add('hide');
+          })
           document.querySelector('.finish')?.classList.remove('visible');
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.Score.element);
+          this.rootElement.appendChild(this.NavMeny.element)
+          this.rootElement.appendChild(this.FormWrapper.element)
           if (document.body.classList.contains('noscrool')) {
             document.body.classList.remove('noscrool');
           }
@@ -112,10 +147,13 @@ export class App {
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.Score.element);
+          this.rootElement.appendChild(this.NavMeny.element)
+          this.rootElement.appendChild(this.FormWrapper.element)
           if (document.body.classList.contains('noscrool')) {
             document.body.classList.remove('noscrool');
           }
           this.ScoreList.results();
+          this.stopGame();
         },
       },
       {
@@ -126,8 +164,11 @@ export class App {
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.GameSetting.element);
+          this.rootElement.appendChild(this.NavMeny.element)
+          this.rootElement.appendChild(this.FormWrapper.element)
           this.GameSettingCardsSelect.SelectedValueCards();
           this.GameSettingGameSelect.SelectedValueGame();
+          this.stopGame();
         },
       },
     ];

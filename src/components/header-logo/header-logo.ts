@@ -8,5 +8,11 @@ export class HeaderLogo extends BaseComponent {
                 <p class="logo__top">Match</p>
                 <p class="logo__bottom">Match</p>
             `;
+    this.navigate();
+  }
+  navigate(){
+    this.element.addEventListener('click',()=>{
+      window.location.hash='test1';
+    })
   }
 }

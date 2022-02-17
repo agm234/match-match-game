@@ -6,7 +6,7 @@ export class Header extends BaseComponent {
   private readonly headerWrapper: HeaderWrapper;
 
   constructor() {
-    super('header', ['header_wrapper']);
+    super('header', ['header']);
     this.headerWrapper = new HeaderWrapper();
     this.element.appendChild(this.headerWrapper.element);
   }

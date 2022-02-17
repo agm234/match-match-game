@@ -1,7 +1,9 @@
-main{
-    width:1000px ;
-    height: 960px;
-    border-radius: 5px;
-    margin: 33px 220px 125px 220px;
-
+.main {
+  max-width: 1200px;
+  border-radius: 5px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.05);
 }

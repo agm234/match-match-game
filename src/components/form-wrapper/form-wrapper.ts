@@ -62,9 +62,20 @@ export class FormWrapper extends BaseComponent {
     add?.addEventListener('submit', async (event) => {
       event.preventDefault();
       document.querySelector('.cover')?.classList.toggle('hidden');
-      document.querySelector('.btn-reg__register')?.classList.add('hide');
-      document.querySelector('.btn-reg__startgame')?.classList.remove('hide');
-      document.querySelector('.avatar')?.classList.remove('hide');
+      document.querySelectorAll('.btn-reg__register').forEach(el=>{
+        el.classList.add('hide');
+      })
+      document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
+        el.classList.remove('hide');
+      })
+      document.querySelectorAll('.avatar').forEach(el=>{
+        document.querySelectorAll('.btn_reg').forEach(elem=>{
+          if (!elem.classList.contains('activeBtns')){
+            el.classList.remove('hide');
+          }
+        })
+       
+      })
       document.body.classList.remove('noscrool');
       const Idb = new DataBase();
       await Idb.init('agm234', 1);

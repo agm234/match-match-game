@@ -1,6 +1,5 @@
 import { BaseComponent } from '../base-component';
 import { Timer } from '../timer/timer';
-import { Game } from '../game/game';
 import { CardContainer } from '../card-container/card-container';
 import { delay } from '../shared/delay';
 import { DataBase } from '../../indexedDB';
@@ -8,6 +7,7 @@ import { FormWrapper } from '../form-wrapper/form-wrapper';
 import './game-wrapper.scss';
 import { TimerContent } from '../timer-content/timer-content';
 import { PopupFinish } from '../popup-finish-game/popup-finish-game';
+import { GameWrapperGame } from '../game_warapper_game/game_warapper_game';
 
 interface MyRecord {
   name: string;
@@ -22,7 +22,7 @@ let numberofcards = 0;
 let numberOfComparisons = 0;
 let numberOfFalseComparisons = 0;
 export class GameWrapper extends BaseComponent {
-  private readonly game: Game;
+  private readonly gameWrapperGame: GameWrapperGame;
 
   private cards!: CardContainer[];
 
@@ -44,13 +44,13 @@ export class GameWrapper extends BaseComponent {
     this.element.appendChild(this.PopupFinish.element);
     this.Timer = new Timer();
     this.element.appendChild(this.Timer.element);
-    this.game = new Game();
-    this.element.appendChild(this.game.element);
+    this.gameWrapperGame = new GameWrapperGame();
+    this.element.appendChild(this.gameWrapperGame.element);
     this.FormWrapper = new FormWrapper();
   }
 
   StartGame(images: string[]): void {
-    this.game.clear();
+    this.gameWrapperGame.game.clear();
     this.TimerContent = new TimerContent();
     this.cards = images
       .concat(images)
@@ -60,18 +60,21 @@ export class GameWrapper extends BaseComponent {
     numberOfComparisons = 0;
     numberOfFalseComparisons = 0;
     this.cards.forEach((card) => card.element.addEventListener('click', () => this.cardHandler(card)));
-    this.game.addCards(this.cards);
-    document.querySelector('.stop')?.classList.add('not-active');
+    this.gameWrapperGame.game.addCards(this.cards);
+    document.querySelectorAll('.stop')?.forEach(el=>{
+      el.classList.add('not-active');
+    })
     setTimeout(() => {
       this.TimerContent.startTimer();
-      document.querySelector('.stop')?.classList.remove('not-active');
+      document.querySelectorAll('.stop')?.forEach(elem=>{
+      elem.classList.remove('not-active');
+      })
     }, 5000);
   }
 
   stop(): void {
     this.TimerContent.stopTimer();
-    this.TimerContent.clearTimer();
-    this.game.clear();
+    this.gameWrapperGame.game.clear();
   }
 
   private async cardHandler(card: CardContainer) {

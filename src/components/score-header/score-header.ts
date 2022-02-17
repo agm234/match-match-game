@@ -4,7 +4,7 @@ import './score-header.scss';
 
 export class ScoreHeader extends BaseComponent {
   constructor() {
-    super('h1', ['header']);
+    super('h1', ['scoreheader']);
     this.element.innerHTML = `
         Best players
         `;

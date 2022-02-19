@@ -3,9 +3,7 @@ import { HeaderBtnWrapper } from '../header-btn-wrapper/header-btn-wrapper';
 import './nav-menu.scss';
 
 export class NavMeny extends BaseComponent {
-//   private readonly MenuList: MenuList;
   private readonly HeaderBtnWrapper: HeaderBtnWrapper;
-  //   public readonly BtnLogin: BtnLogin;
 
   constructor() {
     super('div', ['nav_menu']);
@@ -22,7 +20,7 @@ export class NavMeny extends BaseComponent {
     this.navigate();
   }
 
-  navigate() {
+  navigate():void {
     this.element.children[0].addEventListener('click', (el) => {
       if ((el.target as HTMLElement).classList.contains('nav-menu-item')) {
         this.closeSideBar();
@@ -31,7 +29,7 @@ export class NavMeny extends BaseComponent {
     });
   }
 
-  closeSideBar() {
+  closeSideBar():void {
     document.querySelector('.burger')?.classList.remove('active_burger');
     document.body.classList.remove('noscrool');
     this.element.style.transform = '';

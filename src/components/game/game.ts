@@ -18,7 +18,6 @@ export class Game extends BaseComponent {
 
   addCards(cards: CardContainer[]): void {
     this.cards = cards;
-    const CardWidth = 100 / Math.sqrt(this.cards.length) - 1;
     this.cards.forEach((card) => {
       card.element.style.width = `calc(${25}%)`;
       this.element.appendChild(card.element);

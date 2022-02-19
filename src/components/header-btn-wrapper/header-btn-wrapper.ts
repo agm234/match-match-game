@@ -1,5 +1,4 @@
 import { BaseComponent } from '../base-component';
-import { FormWrapper } from '../form-wrapper/form-wrapper';
 import { GameWrapper } from '../game-wrapper/game-wrapper';
 import './header-btn-wrapper.scss';
 
@@ -25,7 +24,7 @@ export class HeaderBtnWrapper extends BaseComponent {
   show(): void {
     const btns = document.querySelectorAll('.btn-reg__register');
     btns.forEach((el) => {
-      el?.addEventListener('click', (elme) => {
+      el?.addEventListener('click', () => {
         document.querySelector('.cover')?.classList.toggle('hidden');
         document.querySelector('.burger')?.classList.remove('active_burger');
         (document.querySelector('.nav_menu') as HTMLElement).style.transform = '';

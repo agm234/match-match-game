@@ -11,7 +11,7 @@ export class HeaderLogo extends BaseComponent {
     this.navigate();
   }
 
-  navigate() {
+  navigate():void {
     this.element.addEventListener('click', () => {
       window.location.hash = 'test1';
     });

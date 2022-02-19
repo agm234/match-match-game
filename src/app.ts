@@ -12,8 +12,11 @@ import { FormWrapper } from './components/form-wrapper/form-wrapper';
 
 export class App {
   private readonly header: Header;
+
   private readonly NavMeny: NavMeny;
+
   private readonly FormWrapper: FormWrapper;
+
   private readonly main: Main;
 
   private readonly GameWrapper: GameWrapper;
@@ -29,12 +32,12 @@ export class App {
   private readonly ScoreList: ScoreList;
 
   constructor(private readonly rootElement: HTMLElement) {
-    window.location.hash='test1';
+    window.location.hash = 'test1';
     this.header = new Header();
     this.main = new Main();
-    this.NavMeny= new NavMeny();
+    this.NavMeny = new NavMeny();
     this.FormWrapper = new FormWrapper();
-    this.rootElement.prepend(this.header.element,this.main.element,this.NavMeny.element,this.FormWrapper.element);
+    this.rootElement.prepend(this.header.element, this.main.element, this.NavMeny.element, this.FormWrapper.element);
     this.GameWrapper = new GameWrapper();
     this.Score = new Score();
     this.GameSetting = new GameSetting();
@@ -66,8 +69,8 @@ export class App {
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.main.element);
-          this.rootElement.appendChild(this.NavMeny.element)
-          this.rootElement.appendChild(this.FormWrapper.element)
+          this.rootElement.appendChild(this.NavMeny.element);
+          this.rootElement.appendChild(this.FormWrapper.element);
           this.stopGame();
         },
       },
@@ -79,16 +82,14 @@ export class App {
           this.NavMeny.closeSideBar();
           document.querySelector('.active_nav')?.classList.remove('active_nav');
           this.rootElement.appendChild(this.GameWrapper.element);
-          this.rootElement.appendChild(this.NavMeny.element)
-          this.rootElement.appendChild(this.FormWrapper.element)
-          document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
-            console.log(el)
+          this.rootElement.appendChild(this.NavMeny.element);
+          this.rootElement.appendChild(this.FormWrapper.element);
+          document.querySelectorAll('.btn-reg__startgame').forEach((el) => {
             el.classList.add('hide');
-          })
-          document.querySelectorAll('.btn-reg__stopgame').forEach(el=>{
-            console.log(el)
+          });
+          document.querySelectorAll('.btn-reg__stopgame').forEach((el) => {
             el.classList.remove('hide');
-          })
+          });
           this.start();
         },
       },
@@ -98,20 +99,17 @@ export class App {
           this.stopGame();
           this.NavMeny.closeSideBar();
           document.querySelector('.about')?.classList.add('active_nav');
-          document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
-            console.log(el)
+          document.querySelectorAll('.btn-reg__startgame').forEach((el) => {
             el.classList.remove('hide');
-          })
-          document.querySelectorAll('.btn-reg__stopgame').forEach(el=>{
-            console.log(el)
+          });
+          document.querySelectorAll('.btn-reg__stopgame').forEach((el) => {
             el.classList.add('hide');
-          })
+          });
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.main.element);
-          this.rootElement.appendChild(this.NavMeny.element)
-          this.rootElement.appendChild(this.FormWrapper.element)
-          
+          this.rootElement.appendChild(this.NavMeny.element);
+          this.rootElement.appendChild(this.FormWrapper.element);
         },
       },
       {
@@ -119,20 +117,18 @@ export class App {
         component: () => {
           document.querySelector('.active_nav')?.classList.remove('active_nav');
           document.querySelector('.score')?.classList.add('active_nav');
-          document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
-            console.log(el)
+          document.querySelectorAll('.btn-reg__startgame').forEach((el) => {
             el.classList.remove('hide');
-          })
-          document.querySelectorAll('.btn-reg__stopgame').forEach(el=>{
-            console.log(el)
+          });
+          document.querySelectorAll('.btn-reg__stopgame').forEach((el) => {
             el.classList.add('hide');
-          })
+          });
           document.querySelector('.finish')?.classList.remove('visible');
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.Score.element);
-          this.rootElement.appendChild(this.NavMeny.element)
-          this.rootElement.appendChild(this.FormWrapper.element)
+          this.rootElement.appendChild(this.NavMeny.element);
+          this.rootElement.appendChild(this.FormWrapper.element);
           if (document.body.classList.contains('noscrool')) {
             document.body.classList.remove('noscrool');
           }
@@ -147,8 +143,8 @@ export class App {
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.Score.element);
-          this.rootElement.appendChild(this.NavMeny.element)
-          this.rootElement.appendChild(this.FormWrapper.element)
+          this.rootElement.appendChild(this.NavMeny.element);
+          this.rootElement.appendChild(this.FormWrapper.element);
           if (document.body.classList.contains('noscrool')) {
             document.body.classList.remove('noscrool');
           }
@@ -164,8 +160,8 @@ export class App {
           this.rootElement.innerHTML = '';
           this.rootElement.appendChild(this.header.element);
           this.rootElement.appendChild(this.GameSetting.element);
-          this.rootElement.appendChild(this.NavMeny.element)
-          this.rootElement.appendChild(this.FormWrapper.element)
+          this.rootElement.appendChild(this.NavMeny.element);
+          this.rootElement.appendChild(this.FormWrapper.element);
           this.GameSettingCardsSelect.SelectedValueCards();
           this.GameSettingGameSelect.SelectedValueGame();
           this.stopGame();

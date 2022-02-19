@@ -35,8 +35,5 @@ export class TimerContent extends BaseComponent {
     this.test[0].innerHTML = `
         00:00
         `;
-        
-  console.log(2323);
-  console.log(this.test[0])
-}
   }
+}

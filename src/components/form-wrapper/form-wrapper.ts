@@ -62,20 +62,19 @@ export class FormWrapper extends BaseComponent {
     add?.addEventListener('submit', async (event) => {
       event.preventDefault();
       document.querySelector('.cover')?.classList.toggle('hidden');
-      document.querySelectorAll('.btn-reg__register').forEach(el=>{
+      document.querySelectorAll('.btn-reg__register').forEach((el) => {
         el.classList.add('hide');
-      })
-      document.querySelectorAll('.btn-reg__startgame').forEach(el=>{
+      });
+      document.querySelectorAll('.btn-reg__startgame').forEach((el) => {
         el.classList.remove('hide');
-      })
-      document.querySelectorAll('.avatar').forEach(el=>{
-        document.querySelectorAll('.btn_reg').forEach(elem=>{
-          if (!elem.classList.contains('activeBtns')){
+      });
+      document.querySelectorAll('.avatar').forEach((el) => {
+        document.querySelectorAll('.btn_reg').forEach((elem) => {
+          if (!elem.classList.contains('activeBtns')) {
             el.classList.remove('hide');
           }
-        })
-       
-      })
+        });
+      });
       document.body.classList.remove('noscrool');
       const Idb = new DataBase();
       await Idb.init('agm234', 1);
@@ -84,7 +83,6 @@ export class FormWrapper extends BaseComponent {
   }
 
   UserData(): MyRecord {
-    console.log(this.element);
     const name = document.getElementById('name');
     const lastname = document.getElementById('lastname');
     const email = document.getElementById('email');

@@ -10,9 +10,10 @@ export class HeaderLogo extends BaseComponent {
             `;
     this.navigate();
   }
-  navigate(){
-    this.element.addEventListener('click',()=>{
-      window.location.hash='test1';
-    })
+
+  navigate() {
+    this.element.addEventListener('click', () => {
+      window.location.hash = 'test1';
+    });
   }
 }

@@ -61,14 +61,14 @@ export class GameWrapper extends BaseComponent {
     numberOfFalseComparisons = 0;
     this.cards.forEach((card) => card.element.addEventListener('click', () => this.cardHandler(card)));
     this.gameWrapperGame.game.addCards(this.cards);
-    document.querySelectorAll('.stop')?.forEach(el=>{
+    document.querySelectorAll('.stop')?.forEach((el) => {
       el.classList.add('not-active');
-    })
+    });
     setTimeout(() => {
       this.TimerContent.startTimer();
-      document.querySelectorAll('.stop')?.forEach(elem=>{
-      elem.classList.remove('not-active');
-      })
+      document.querySelectorAll('.stop')?.forEach((elem) => {
+        elem.classList.remove('not-active');
+      });
     }, 5000);
   }
 

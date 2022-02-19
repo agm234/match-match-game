@@ -11,7 +11,9 @@ export class HeaderWrapper extends BaseComponent {
   private readonly HeaderNav: HeaderNav;
 
   private readonly HeaderBtnWrapper: HeaderBtnWrapper;
+
   private readonly Burger : Burger;
+
   constructor() {
     super('div', ['header_wrapper']);
     this.HeaderLogo = new HeaderLogo();
@@ -24,16 +26,17 @@ export class HeaderWrapper extends BaseComponent {
     this.element.appendChild(this.Burger.element);
     this.showNav();
   }
+
   showNav(): void {
     this.Burger.element.addEventListener('click', () => {
       this.Burger.element.classList.toggle('active_burger');
       document.body.classList.toggle('noscrool');
-      let navelem =document.querySelector(".nav_menu") as HTMLElement;
+      const navelem = document.querySelector('.nav_menu') as HTMLElement;
       navelem.classList.toggle('nav_active');
-      if (navelem.style.length == 0){
-        navelem.style.transform= `translateX(${document.body.clientWidth-navelem.clientWidth}px)`;
+      if (navelem.style.length === 0) {
+        navelem.style.transform = `translateX(${document.body.clientWidth - navelem.clientWidth}px)`;
       } else {
-        navelem.style.transform ='';
+        navelem.style.transform = '';
       }
       document.body.classList.toggle('scroll-hidden');
     });

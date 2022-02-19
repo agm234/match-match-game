@@ -7,8 +7,8 @@ export class Game extends BaseComponent {
 
   constructor() {
     super('div', ['game']);
-    this.element.innerHTML=`
-    <div class="game_inner"></div>`
+    this.element.innerHTML = `
+    <div class="game_inner"></div>`;
   }
 
   clear(): void {

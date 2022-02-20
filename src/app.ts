@@ -30,7 +30,8 @@ export class App {
   private readonly GameSettingGameSelect: GameSettingGameSelect;
 
   private readonly ScoreList: ScoreList;
-  private  isStarted: boolean;
+
+  private isStarted: boolean;
 
   constructor(private readonly rootElement: HTMLElement) {
     window.location.hash = 'test1';
@@ -45,11 +46,11 @@ export class App {
     this.GameSettingCardsSelect = new GameSettingCardsSelect();
     this.GameSettingGameSelect = new GameSettingGameSelect();
     this.ScoreList = new ScoreList();
-    this.isStarted=false;
+    this.isStarted = false;
   }
 
   async start(): Promise<void> {
-    this.isStarted=true;
+    this.isStarted = true;
     const res = await fetch('./images.json');
     const categories: ImageCategory[] = await res.json();
     const index: number = this.GameSettingCardsSelect.SelectedValueCards();
@@ -59,11 +60,10 @@ export class App {
   }
 
   async stopGame(): Promise<void> {
-    if (this.isStarted){
+    if (this.isStarted) {
       this.GameWrapper.stop();
-      this.isStarted=false;
+      this.isStarted = false;
     }
-    
   }
 
   async routing(): Promise<void> {

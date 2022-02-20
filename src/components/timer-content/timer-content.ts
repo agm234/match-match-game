@@ -13,7 +13,7 @@ export class TimerContent extends BaseComponent {
     this.element.innerHTML = `
         00:00
         `;
-        this.clearTimer();
+    this.clearTimer();
   }
 
   startTimer(): void {

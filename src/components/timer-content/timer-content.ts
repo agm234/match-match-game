@@ -13,10 +13,11 @@ export class TimerContent extends BaseComponent {
     this.element.innerHTML = `
         00:00
         `;
+        this.clearTimer();
   }
 
   startTimer(): void {
-    this.stopTimer();
+    this.clearTimer();
     let miliseconds = 0;
     this.test = document.getElementsByTagName('h2');
     this.timer = window.setInterval(() => {
@@ -32,7 +33,7 @@ export class TimerContent extends BaseComponent {
   }
 
   clearTimer(): void {
-    this.test[0].innerHTML = `
+    this.element.innerHTML = `
         00:00
         `;
   }
